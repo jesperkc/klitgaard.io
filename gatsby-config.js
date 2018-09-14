@@ -14,5 +14,11 @@ module.exports = {
         // see https://github.com/smooth-code/svgr for a list of all options
       },
     },
+    {
+      resolve: `gatsby-plugin-emotion`,
+      options: {
+        // Accepts all options defined by `babel-plugin-emotion` plugin.
+      }
+    }
   ],
 }
