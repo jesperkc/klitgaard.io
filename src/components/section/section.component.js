@@ -26,7 +26,7 @@ display: flex;
 min-height: 100vh;
 /* justify-content: center;
 align-items: center; */
-padding: 40px;
+padding: 80px 40px;
 position: relative;
 background-color: ${props => props.backgroundColor};
 `;
