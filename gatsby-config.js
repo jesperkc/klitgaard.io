@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'Gatsby Default Starter',
+    title: 'Jesper Strange Klitgaard Christiansen',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
