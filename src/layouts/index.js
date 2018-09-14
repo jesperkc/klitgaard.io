@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Helmet from 'react-helmet';
-import './index.css';
-
+import './globalStyles';
+//import './index.css';
 
 const Layout = ({ children, data }) => (
   <div>
