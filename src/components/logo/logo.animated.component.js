@@ -1,7 +1,7 @@
 import anime from 'animejs';
 import React from 'react';
 import styled, { css } from 'react-emotion';
-import { ReactComponent as LogoSVG } from '../../../public/static/logo-lines.svg';
+import { ReactComponent as LogoSVG } from '../../static/logo-lines.svg';
 
 class LogoAnimated extends React.Component {
 

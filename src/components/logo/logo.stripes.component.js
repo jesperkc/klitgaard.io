@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'react-emotion';
-import { ReactComponent as LogoSVG } from '../../../public/static/logo-stripes.svg';
+import { ReactComponent as LogoSVG } from '../../static/logo-stripes.svg';
 
 class LogoStripes extends React.Component {
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'react-emotion';
-import { ReactComponent as LogoSVG } from '../../../public/static/logo-full.svg';
+import { ReactComponent as LogoSVG } from '../../static/logo-full.svg';
 
 class LogoFull extends React.Component {
 

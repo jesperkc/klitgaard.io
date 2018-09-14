@@ -14,9 +14,9 @@ class Case extends React.Component {
     return (
       <StyledCase>
         {/* <img src="/static/bunkerone.com_(iPad Pro).png" /> */}
-        <video autoPlay={true}>
+        {/* <video autoPlay={true}>
           <source src="/static/bunkerone.mov" />
-        </video>
+        </video> */}
       </StyledCase>
     )
   }
