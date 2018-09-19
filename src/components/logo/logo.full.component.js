@@ -1,38 +1,40 @@
 import React from 'react';
 import styled, { css } from 'react-emotion';
-import { ReactComponent as LogoSVG } from '../../static/logo-full.svg';
+import { ReactComponent as LogoSVG } from '../../static/sk-logo-full.svg';
 
 class LogoFull extends React.Component {
 
 
-  constructor() {
-    super();
+    constructor() {
+        super();
 
-  }
+    }
 
-  render() {
+    render() {
 
-    return (<LogoWrapper color={this.props.color}>
-      <LogoSVG className={logo_css} />
-    </LogoWrapper>)
-  }
+        return (<LogoWrapper color={this.props.color}>
+            <LogoSVG className={logo_css} />
+        </LogoWrapper>)
+    }
 }
 
 const logo_css = css`
-width: 40px;
-height: 40px;
-
-
+  width: auto;
+  height: 50px;
+  margin-left: 40px;
+  overflow: visible;
+  position: relative;
 `;
 
 const LogoWrapper = styled('div')`
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  top: 40px;
+  width: 100%;
+  font-size: 0;
 
-    svg{
-      position: fixed;
-      top: 40px;
-      left: 40px;
-    }
-    path{
+    polygon{
         fill: ${props => props.color};
     }
 `;

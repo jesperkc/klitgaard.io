@@ -1,7 +1,7 @@
 import anime from 'animejs';
 import React from 'react';
 import styled, { css } from 'react-emotion';
-import { ReactComponent as LogoSVG } from '../../static/logo-lines.svg';
+import { ReactComponent as LogoSVG } from '../../static/sk-logo-lines.svg';
 
 class LogoAnimated extends React.Component {
 
@@ -9,35 +9,14 @@ class LogoAnimated extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-      alternatevisible: true
-    }
-    this.paths = {
-      line1: '#line-1',
-      line2: '#line-2',
-      line3: '#line-3',
-      line4: '#line-4',
-      line11: '#line-1-1',
-      line21: '#line-2-1',
-      line31: '#line-3-1',
-      chevron1: '#chevrolet-1',
-      chevron2: '#chevrolet-2',
-      chevron3: '#chevrolet-3',
-      chevron4: '#chevrolet-4',
-      chevron11: '#chevrolet-1-1',
-      chevron21: '#chevrolet-2-1',
-      chevron31: '#chevrolet-3-1',
-      chevronmask1: '#path-1',
-      chevronmask2: '#path-3',
-      chevronmask3: '#path-5',
-      chevronmask4: '#path-7',
-      chevronmask11: '#path-9',
-      chevronmask21: '#path-11',
-      chevronmask31: '#path-13',
-    }
+    this.visible = true;
+    this.easing = 'easeInOutQuad';
+    this.duration = 500;
+    this.delay = 500;
 
-    this.GetNextColor = this.GetNextColor.bind(this);
-    this.GetNextAlternateAnime = this.GetNextAlternateAnime.bind(this);
+
+    //this.GetNextColor = this.GetNextColor.bind(this);
+    //this.GetNextAlternateAnime = this.GetNextAlternateAnime.bind(this);
     this.GetNextAnime = this.GetNextAnime.bind(this);
   }
   componentDidMount() {
@@ -45,166 +24,204 @@ class LogoAnimated extends React.Component {
     this.GetNextAnime();
   }
   GetNextAnime() {
-    this.AnimeShow();
-    this.GetNextAlternateAnime();
-  }
-  GetNextAlternateAnime() {
-    if (Math.random() >= .3) {
-      console.log("this.state.alternatevisible", this.state.alternatevisible);
-      if (this.state.alternatevisible == false) {
-        this.AnimeShowAlternates();
-        this.setState({ alternatevisible: true });
+    setTimeout(() => {
+      this.GetNextAnime();
+    }, 2500);
+
+    if (this.visible) {
+
+      var r = Math.random();
+      if (r >= .8) {
+        this.AnimeHideOddEvenOffset();
+      } else if (r >= .4) {
+        this.AnimeHide();
+      } else if (r >= .2) {
+        this.AnimeHideInstant();
       } else {
-        this.AnimeHideAlternates();
-        this.setState({ alternatevisible: false });
+        this.AnimeHideOddEven();
       }
+
+    } else {
+      var r = Math.random();
+      if (r >= .8) {
+        this.AnimeShowOddEvenOffset();
+      } else if (r >= .4) {
+        this.AnimeShow();
+      } else if (r >= .2) {
+        this.AnimeShowInstant();
+      } else {
+        this.AnimeShowOddEven();
+      }
+
     }
-  }
-  GetNextColor() {
-    var colors = ['#86DA48', '#6CB4C1', '#335BD3', '#000', '#000'];
-    var color = colors[Math.floor(Math.random() * colors.length)];
-    //this.AnimeColor(color);
-  }
-  AnimeHideAlternates() {
-    console.log("AnimeHideAlternates");
-    var timelineParameters = anime.timeline({
-      loop: false,
-      easing: 'easeInCubic',
-      duration: 500,
-      complete: () => {
-        console.log("AnimeHideAlternates done");
-      }
-    });
-
-    var offset = '-=300';
-    timelineParameters
-      .add({
-        targets: this.paths.line1,
-        duration: 1000
-      })
-      .add({ targets: this.paths.line11, translateY: [{ value: -200 }], offset: offset })
-      .add({ targets: this.paths.line21, translateY: [{ value: -200 }], offset: offset })
-      .add({ targets: this.paths.line31, translateY: [{ value: -200 }], offset: offset })
-
-      .add({ targets: this.paths.chevronmask11, translateY: [{ value: -200 }], offset: offset })
-      .add({ targets: this.paths.chevronmask21, translateY: [{ value: -200 }], offset: offset })
-      .add({ targets: this.paths.chevronmask31, translateY: [{ value: -200 }], offset: offset })
-      ;
-  }
-  AnimeShowAlternates() {
-    console.log("AnimeShowAlternates");
-    var timelineParameters = anime.timeline({
-      loop: false,
-      easing: 'easeInCubic',
-      duration: 500,
-      complete: () => {
-        console.log("AnimeShowAlternates done");
-      }
-    });
-
-    var offset = '-=300';
-    timelineParameters
-      .add({
-        targets: this.paths.line1,
-        duration: 2600
-      })
-      .add({ targets: this.paths.line11, translateY: [{ value: 0 }], offset: offset })
-      .add({ targets: this.paths.line21, translateY: [{ value: 0 }], offset: offset })
-      .add({ targets: this.paths.line31, translateY: [{ value: 0 }], offset: offset })
-
-      .add({ targets: this.paths.chevronmask11, translateY: [{ value: 0 }], offset: offset })
-      .add({ targets: this.paths.chevronmask21, translateY: [{ value: 0 }], offset: offset })
-      .add({ targets: this.paths.chevronmask31, translateY: [{ value: 0 }], offset: offset })
-      ;
-  }
-
-  AnimeColor(color) {
-    var timelineParameters = anime.timeline({
-      loop: false,
-      easing: 'easeInCubic',
-      duration: 200,
-      complete: (anim) => {
-        this.AnimeAlternateColor(color);
-      }
-    });
-
-    var offset = '-=100';
-    timelineParameters
-      .add({ targets: this.paths.line1, fill: [{ value: color }], offset: offset })
-      .add({ targets: this.paths.line2, fill: [{ value: color }], offset: offset })
-      .add({ targets: this.paths.line3, fill: [{ value: color }], offset: offset })
-      .add({ targets: this.paths.line4, fill: [{ value: color }], offset: offset })
-
-      .add({ targets: this.paths.chevron1, fill: [{ value: color }], offset: offset })
-      .add({ targets: this.paths.chevron2, fill: [{ value: color }], offset: offset })
-      .add({ targets: this.paths.chevron3, fill: [{ value: color }], offset: offset })
-      .add({ targets: this.paths.chevron4, fill: [{ value: color }], offset: offset })
-      ;
-  }
-
-  AnimeAlternateColor(color) {
-    var timelineParameters = anime.timeline({
-      loop: false,
-      easing: 'easeInCubic',
-      duration: 200,
-      complete: (anim) => {
-      }
-    });
-
-    var offset = '-=100';
-    timelineParameters
-      .add({ targets: this.paths.line11, fill: [{ value: color }], offset: offset })
-      .add({ targets: this.paths.line21, fill: [{ value: color }], offset: offset })
-      .add({ targets: this.paths.line31, fill: [{ value: color }], offset: offset })
-
-      .add({ targets: this.paths.chevron11, fill: [{ value: color }], offset: offset })
-      .add({ targets: this.paths.chevron21, fill: [{ value: color }], offset: offset })
-      .add({ targets: this.paths.chevron31, fill: [{ value: color }], offset: offset })
-
-      ;
   }
 
   AnimeShow() {
+    this.TranslateBlockDefault(1, 10, NormalDirection);
+    this.TranslateBlockDefault(2, 200, NormalDirection);
+    this.TranslateBlockDefault(3, 400, NormalDirection);
+    this.TranslateBlockDefault(4, 600, NormalDirection);
+
+    this.visible = true;
+  }
+
+  AnimeHide() {
+    this.TranslateBlockUp(1, 10, false, NormalDirection);
+    this.TranslateBlockDown(2, 200, false, NormalDirection);
+    this.TranslateBlockUp(3, 400, false, NormalDirection);
+    this.TranslateBlockDown(4, 600, true, NormalDirection);
+
+    this.visible = false;
+  }
+
+  AnimeShowOddEvenOffset() {
+    this.TranslateBlockOddEvenOffsetDefault(1, 10);
+    this.TranslateBlockOddEvenOffsetDefault(2, 200);
+    this.TranslateBlockOddEvenOffsetDefault(3, 400);
+    this.TranslateBlockOddEvenOffsetDefault(4, 600);
+
+    this.visible = true;
+  }
+  AnimeHideOddEvenOffset() {
+    this.TranslateBlockOddEvenUpOffset(1, 10, false);
+    this.TranslateBlockOddEvenDownOffset(2, 200, false);
+    this.TranslateBlockOddEvenUpOffset(3, 400, false);
+    this.TranslateBlockOddEvenDownOffset(4, 600, true);
+
+    this.visible = false;
+  }
+
+  AnimeShowOddEven() {
+    this.TranslateBlockOddEvenDefault(1, 10);
+    this.TranslateBlockOddEvenDefault(2, 200);
+    this.TranslateBlockOddEvenDefault(3, 400);
+    this.TranslateBlockOddEvenDefault(4, 600);
+
+    this.visible = true;
+  }
+  AnimeHideOddEven() {
+    this.TranslateBlockOddEvenUp(1, 10, false);
+    this.TranslateBlockOddEvenDown(2, 200, false);
+    this.TranslateBlockOddEvenUp(3, 400, false);
+    this.TranslateBlockOddEvenDown(4, 600, true);
+
+    this.visible = false;
+  }
+
+  AnimeShowInstant() {
+    this.TranslateBlockDefault(1, 0, NormalDirectionFast, InstantDuration);
+    this.TranslateBlockDefault(2, 0, NormalDirectionFast, InstantDuration);
+    this.TranslateBlockDefault(3, 0, NormalDirectionFast, InstantDuration);
+    this.TranslateBlockDefault(4, 0, NormalDirectionFast, InstantDuration);
+
+    this.visible = true;
+  }
+  AnimeHideInstant() {
+    this.TranslateBlockUp(1, 10, false, NormalDirectionFast, InstantDuration);
+    this.TranslateBlockDown(2, 200, false, NormalDirectionFast, InstantDuration);
+    this.TranslateBlockUp(3, 400, false, NormalDirectionFast, InstantDuration);
+    this.TranslateBlockDown(4, 400, true, NormalDirectionFast, InstantDuration);
+
+    this.visible = false;
+  }
+
+
+  TranslateBlockDefault(group, delay, direction, duration) {
+    setTimeout(() => {
+      document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateDefault} ${direction} ${duration}`);
+    }, delay);
+  }
+  TranslateBlockDown(group, delay, alternate, direction, duration) {
+    setTimeout(() => {
+      if (alternate) {
+        document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockDownAlt} ${direction} ${duration}`);
+      } else {
+        document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockDown} ${direction} ${duration}`);
+      }
+    }, delay);
+  }
+  TranslateBlockUp(group, delay, alternate, direction, duration) {
+    setTimeout(() => {
+      document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockUp} ${direction} ${duration}`);
+    }, delay);
+  }
+
+  HideBlockInstantUp(group, delay, alternate) {
+    setTimeout(() => {
+      document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockUp} ${NormalDirection} ${InstantDuration}`);
+    }, delay);
+  }
+
+  TranslateBlockOddEvenUp(group, delay, alternate, cb) {
+    setTimeout(() => {
+      document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockUp} ${OddEvenDirection}`);
+    }, delay);
+  }
+  TranslateBlockOddEvenDown(group, delay, alternate, cb) {
+    setTimeout(() => {
+      if (alternate) {
+        document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockDownAlt} ${OddEvenDirection}`);
+      } else {
+        document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockDown} ${OddEvenDirection}`);
+      }
+    }, delay);
+  }
+
+  TranslateBlockOddEvenUpOffset(group, delay, alternate, cb) {
+    setTimeout(() => {
+      document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockUp} ${OddEvenOffsetDirection}`);
+    }, delay);
+  }
+  TranslateBlockOddEvenDownOffset(group, delay, alternate, cb) {
+    setTimeout(() => {
+      if (alternate) {
+        document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockDownAlt} ${OddEvenOffsetDirection}`);
+      } else {
+        document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockDown} ${OddEvenOffsetDirection}`);
+      }
+    }, delay);
+  }
+
+  TranslateBlockOddEvenDefault(group, delay, cb) {
+    setTimeout(() => {
+      document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateDefault} ${OddEvenDirection}`);
+    }, delay);
+  }
+  TranslateBlockOddEvenOffsetDefault(group, delay, cb) {
+    setTimeout(() => {
+      document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateDefault} ${OddEvenOffsetDirection}`);
+    }, delay);
+  }
+  TranslateBlockOddDefault(group, delay, cb) {
     var timelineParameters = anime.timeline({
       loop: false,
-      easing: 'easeInCubic',
-      duration: 500,
+      easing: this.easing,
+      duration: this.duration,
       complete: (anim) => {
-        this.hidden = false;
-        this.GetNextAnime();
+        cb && cb();
       }
     });
-
     var offset = '-=300';
     timelineParameters
-      .add({
-        targets: this.paths.line1,
-        duration: 1000
-      })
-      .add({ targets: this.paths.line1, translateY: [{ value: 200 }], offset: offset })
-      .add({ targets: this.paths.line2, translateY: [{ value: 200 }], offset: offset })
-      .add({ targets: this.paths.line3, translateY: [{ value: 200 }], offset: offset })
-      .add({ targets: this.paths.line4, translateY: [{ value: 200 }], offset: offset })
-
-      .add({ targets: this.paths.chevronmask1, translateY: [{ value: 200 }], offset: offset })
-      .add({ targets: this.paths.chevronmask2, translateY: [{ value: 200 }], offset: offset })
-      .add({ targets: this.paths.chevronmask3, translateY: [{ value: 200 }], offset: offset })
-      .add({ targets: this.paths.chevronmask4, translateY: [{ value: 200 }], offset: offset })
-
-      .add({
-        complete: this.GetNextColor
-      })
-
-      .add({ targets: this.paths.line1, translateY: [{ value: 0.1 }], offset: '-=500' })
-      .add({ targets: this.paths.line2, translateY: [{ value: 0.1 }], offset: offset })
-      .add({ targets: this.paths.line3, translateY: [{ value: 0.1 }], offset: offset })
-      .add({ targets: this.paths.line4, translateY: [{ value: 0.1 }], offset: offset })
-
-      .add({ targets: this.paths.chevronmask1, translateY: [{ value: 0 }], offset: offset })
-      .add({ targets: this.paths.chevronmask2, translateY: [{ value: 0 }], offset: offset })
-      .add({ targets: this.paths.chevronmask3, translateY: [{ value: 0 }], offset: offset })
-      .add({ targets: this.paths.chevronmask4, translateY: [{ value: 0 }], offset: offset })
+      .add({ targets: document, duration: delay + 300 + this.delay })
+      .add(this.TranslateDefault(`#g-${group} g:nth-child(2) polygon`, offset))
+      .add(this.TranslateDefault(`#g-${group} g:nth-child(4) polygon`, offset))
       ;
+  }
+  TranslateDown(line, offset) {
+    return { targets: line, translateY: [{ value: 100 }], translateX: [{ value: -50 }], offset: offset };
+  }
+  TranslateDownAlt(line, offset) {
+    return { targets: line, translateY: [{ value: 100 }], translateX: [{ value: 50 }], offset: offset };
+  }
+  TranslateUp(line, offset) {
+    return { targets: line, translateY: [{ value: -100 }], translateX: [{ value: 50 }], offset: offset };
+  }
+  TranslateUpAlt(line, offset) {
+    return { targets: line, translateY: [{ value: -100 }], translateX: [{ value: -50 }], offset: offset };
+  }
+  TranslateDefault(line, offset) {
+    return { targets: line, translateY: [{ value: 0 }], translateX: [{ value: 0 }], offset: offset };
   }
   render() {
 
@@ -215,22 +232,173 @@ class LogoAnimated extends React.Component {
 }
 
 const logo_css = css`
-width: 40px;
-height: 40px;
-
-
+  width: auto;
+  height: 50px;
+  margin-left: 40px;
+  overflow: visible;
+  position: relative;
 `;
 
-const LogoWrapper = styled('div')`
+const TranslateDefault = css`
+  g polygon{
+    transform: translateY(0) translateX(0);
+    transition: all 500ms;
+  }
+`;
+const TranslateBlockUp = css`
+  g polygon{
+    transform: translateY(-100px) translateX(50px);
+    transition: all 500ms;
+  }
+`;
+const TranslateBlockDown = css`
+  g polygon{
+    transform: translateY(100px) translateX(-50px);
+    transition: all 500ms;
+  }
+`;
+const TranslateBlockDownAlt = css`
+  g polygon{
+    transform: translateY(100px) translateX(50px);
+    transition: all 500ms;
+  }
+`;
 
+
+const InstantDuration = css`
+  g polygon{
+    transition: all 5ms;
+  }
+`;
+
+
+
+
+const NormalDirection = css`
+  g:nth-child(1) polygon{
+    transition-delay: 0ms;
+  }
+  g:nth-child(2) polygon{
+    transition-delay: 200ms;
+  }
+  g:nth-child(3) polygon{
+    transition-delay: 400ms;
+  }
+  g:nth-child(4) polygon{
+    transition-delay: 600ms;
+  }
+  g:nth-child(5) polygon{
+    transition-delay: 800ms;
+  }
+`;
+
+const NormalDirectionFast = css`
+  g:nth-child(1) polygon{
+    transition-delay: 0ms;
+  }
+  g:nth-child(2) polygon{
+    transition-delay: 50ms;
+  }
+  g:nth-child(3) polygon{
+    transition-delay: 100ms;
+  }
+  g:nth-child(4) polygon{
+    transition-delay: 150ms;
+  }
+  g:nth-child(5) polygon{
+    transition-delay: 200ms;
+  }
+`;
+
+const CenterDirection = css`
+  g:nth-child(1) polygon{
+    transition-delay: 0ms;
+  }
+  g:nth-child(2) polygon{
+    transition-delay: 200ms;
+  }
+  g:nth-child(3) polygon{
+    transition-delay: 400ms;
+  }
+  g:nth-child(4) polygon{
+    transition-delay: 200ms;
+  }
+  g:nth-child(5) polygon{
+    transition-delay: 0ms;
+  }
+`;
+const AlternateDirection = css`
+  g:nth-child(5) polygon{
+    transition-delay: 0ms;
+  }
+  g:nth-child(4) polygon{
+    transition-delay: 200ms;
+  }
+  g:nth-child(3) polygon{
+    transition-delay: 400ms;
+  }
+  g:nth-child(2) polygon{
+    transition-delay: 600ms;
+  }
+  g:nth-child(1) polygon{
+    transition-delay: 800ms;
+  }
+`;
+
+const OddEvenDirection = css`
+g:nth-child(1) polygon{
+  transition-delay: 0ms;
+}
+g:nth-child(3) polygon{
+  transition-delay: 200ms;
+}
+g:nth-child(5) polygon{
+  transition-delay: 400ms;
+}
+g:nth-child(2) polygon{
+  transition-delay: 600ms;
+}
+g:nth-child(4) polygon{
+  transition-delay: 800ms;
+}
+`;
+
+const OddEvenOffsetDirection = css`
+g:nth-child(1) polygon{
+  transition-delay: 300ms;
+}
+g:nth-child(3) polygon{
+  transition-delay: 600ms;
+}
+g:nth-child(5) polygon{
+  transition-delay: 300ms;
+}
+g:nth-child(2) polygon{
+  transition-delay: 0ms;
+}
+g:nth-child(4) polygon{
+  transition-delay: 0ms;
+}
+`;
+
+
+
+
+
+const LogoWrapper = styled('div')`
+    overflow: hidden;
+    /* background-color: pink; */
+    position: fixed;
+    left: 0;
+    top: 40px;
+    width: 100%;
+    font-size: 0;
     svg{
-      position: fixed;
-      top: 40px;
-      left: 40px;
+      
     }
     polygon{
-    fill: ${props => props.color};
-}
+      fill: ${props => props.color};
+    }
 `;
 
 export default LogoAnimated;

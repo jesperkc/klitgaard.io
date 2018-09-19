@@ -12,7 +12,7 @@ class Footer extends React.Component {
   render() {
 
     return (<FooterWrapper color={this.props.color}>
-      <div>Klitgaard</div>
+      <div>jesper@strangeklitgaard.dk</div>
     </FooterWrapper>)
   }
 }

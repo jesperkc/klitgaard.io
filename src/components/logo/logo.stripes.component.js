@@ -1,8 +1,8 @@
 import React from 'react';
 import styled, { css } from 'react-emotion';
-import { ReactComponent as LogoSVG } from '../../static/logo-stripes.svg';
+import { ReactComponent as LogoSVG } from '../../static/sk-logo-stripes.svg';
 
-class LogoStripes extends React.Component {
+class LogoFull extends React.Component {
 
 
   constructor() {
@@ -19,22 +19,24 @@ class LogoStripes extends React.Component {
 }
 
 const logo_css = css`
-width: 40px;
-height: 40px;
-
-
+  width: auto;
+  height: 50px;
+  margin-left: 40px;
+  overflow: visible;
+  position: relative;
 `;
 
 const LogoWrapper = styled('div')`
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  top: 40px;
+  width: 100%;
+  font-size: 0;
 
-    svg{
-      position: fixed;
-      top: 40px;
-      left: 40px;
-    }
-    path{
+    polygon{
         fill: ${props => props.color};
     }
 `;
 
-export default LogoStripes;
+export default LogoFull;
