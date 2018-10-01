@@ -1,4 +1,3 @@
-import 'intersection-observer';
 import React from 'react';
 import styled from 'react-emotion';
 import ScrollPercentage from 'react-scroll-percentage';

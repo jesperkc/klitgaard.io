@@ -1,5 +1,4 @@
 import anime from 'animejs';
-import 'intersection-observer';
 import React from 'react';
 import styled, { css } from 'react-emotion';
 import { ReactComponent as HISVG } from '../../static/hi.svg';

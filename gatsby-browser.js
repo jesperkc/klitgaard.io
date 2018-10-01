@@ -4,4 +4,24 @@
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
 
- // You can delete this file if you're not using it
+// You can delete this file if you're not using it
+
+exports.onClientEntry = async () => {
+  // NOTE: Don't polyfill Promise here (Gatsby already includes a Promise polyfill)
+
+  // IntersectionObserver polyfill for gatsby-image (Safari, IE)
+  if (typeof window.IntersectionObserver === `undefined`) {
+    import(`intersection-observer`);
+    console.log(`👍 IntersectionObserver is polyfilled`)
+  }
+
+  // // Object-fit/Object-position polyfill for gatsby-image (IE)
+  // const testImg = document.createElement(`img`)
+  // if (
+  //   typeof testImg.style.objectFit === `undefined` ||
+  //   typeof testImg.style.objectPosition === `undefined`
+  // ) {
+  //   await import(`object-fit-images`)()
+  //   console.log(`👍 Object-fit/Object-position are polyfilled`)
+  // }
+}
