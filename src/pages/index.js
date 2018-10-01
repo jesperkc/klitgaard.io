@@ -1,22 +1,24 @@
 import React from 'react';
 import styled from 'react-emotion';
+//import CaseSection from '../components/case/case.component';
 import Contact from '../components/contact/contact.component';
 import Hero from '../components/hero/hero.component';
+import Layout from '../components/layouts/';
 import Section from '../components/section/section.component';
 
-const IndexPage = () => (
-  <div>
-    <Section backgroundColor={'#fff'} logoColor={'#000'} logo={'animated'}>
+const IndexPage = props => (
+  <Layout location={props.location}>
+    <Section backgroundColor={'#fff'} logoColor={'#000'} logo={''}>
       <Hero />
     </Section>
-    <Section backgroundColor={'#BCE784'} logoColor={'#fff'} logo={'full'}></Section>
-    <Section backgroundColor={'#5DD39E'} logoColor={'#BCE784'} logo={'stripes'}> </Section>
-    <Section backgroundColor={'#348AA7'} logoColor={'#5DD39E'} logo={'full'}></Section>
-    <Section backgroundColor={'#525174'} logoColor={'#348AA7'} logo={'stripes'}></Section>
-    <Section backgroundColor={'#513B56'} logoColor={'#525174'} logo={'full'}></Section>
+    {/* <CaseSection backgroundColor={'#BCE784'} logoColor={'#fff'} logo={'full'} title={'Kontrapunkt'} description={'Corporate website'} url={'kontrapunkt.com'}></CaseSection>
+    <CaseSection backgroundColor={'#5DD39E'} logoColor={'#BCE784'} logo={'stripes'} title={'Bunker One'} description={'Corporate website'} url={'bunkerone.com'}></CaseSection>
+    <CaseSection backgroundColor={'#348AA7'} logoColor={'#5DD39E'} logo={'full'} title={'Danish Crown'} description={'Design hub'}></CaseSection> */}
+    <Section backgroundColor={'#BCE784'} logoColor={'#fff'} logo={'stripes'} title={'Case 2'}></Section>
+    <Section backgroundColor={'#348AA7'} logoColor={'#BCE784'} logo={'full'} title={'Case 2'} marginBottom={'40vh'}></Section>
     <Section backgroundColor={'#fff'} logoColor={'#000'} logo={'full'}><Contact /></Section>
     <BG></BG>
-  </div>
+  </Layout>
 )
 
 const BG = styled('div')`

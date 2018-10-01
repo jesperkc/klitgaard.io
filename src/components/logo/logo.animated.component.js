@@ -1,7 +1,7 @@
-import anime from 'animejs';
 import React from 'react';
-import styled, { css } from 'react-emotion';
+import { css } from 'react-emotion';
 import { ReactComponent as LogoSVG } from '../../static/sk-logo-lines.svg';
+import { LogoWrapper, logo_css } from './shared.component';
 
 class LogoAnimated extends React.Component {
 
@@ -28,9 +28,9 @@ class LogoAnimated extends React.Component {
       this.GetNextAnime();
     }, 2500);
 
+    var r = Math.random();
     if (this.visible) {
 
-      var r = Math.random();
       if (r >= .8) {
         this.AnimeHideOddEvenOffset();
       } else if (r >= .4) {
@@ -42,7 +42,6 @@ class LogoAnimated extends React.Component {
       }
 
     } else {
-      var r = Math.random();
       if (r >= .8) {
         this.AnimeShowOddEvenOffset();
       } else if (r >= .4) {
@@ -126,103 +125,77 @@ class LogoAnimated extends React.Component {
   }
 
 
+  SetAnimationClass(group, c) {
+    var g = document.querySelector(`#g-${group}`);
+    if (g) g.setAttribute('class', c);
+  }
   TranslateBlockDefault(group, delay, direction, duration) {
     setTimeout(() => {
-      document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateDefault} ${direction} ${duration}`);
+      this.SetAnimationClass(group, `${TranslateDefault} ${direction} ${duration}`);
     }, delay);
   }
   TranslateBlockDown(group, delay, alternate, direction, duration) {
     setTimeout(() => {
       if (alternate) {
-        document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockDownAlt} ${direction} ${duration}`);
+        this.SetAnimationClass(group, `${TranslateBlockDownAlt} ${direction} ${duration}`);
       } else {
-        document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockDown} ${direction} ${duration}`);
+        this.SetAnimationClass(group, `${TranslateBlockDown} ${direction} ${duration}`);
       }
     }, delay);
   }
   TranslateBlockUp(group, delay, alternate, direction, duration) {
     setTimeout(() => {
-      document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockUp} ${direction} ${duration}`);
+      this.SetAnimationClass(group, `${TranslateBlockUp} ${direction} ${duration}`);
     }, delay);
   }
 
-  HideBlockInstantUp(group, delay, alternate) {
-    setTimeout(() => {
-      document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockUp} ${NormalDirection} ${InstantDuration}`);
-    }, delay);
-  }
+  // HideBlockInstantUp(group, delay, alternate) {
+  //   setTimeout(() => {
+  //     this.SetAnimationClass(group, `${TranslateBlockUp} ${NormalDirection} ${InstantDuration} ${OffsetColors}`);
+  //   }, delay);
+  // }
 
   TranslateBlockOddEvenUp(group, delay, alternate, cb) {
     setTimeout(() => {
-      document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockUp} ${OddEvenDirection}`);
+      this.SetAnimationClass(group, `${TranslateBlockUp} ${OddEvenDirection} ${OffsetColors}`);
     }, delay);
   }
   TranslateBlockOddEvenDown(group, delay, alternate, cb) {
     setTimeout(() => {
       if (alternate) {
-        document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockDownAlt} ${OddEvenDirection}`);
+        this.SetAnimationClass(group, `${TranslateBlockDownAlt} ${OddEvenDirection} ${OffsetColors}`);
       } else {
-        document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockDown} ${OddEvenDirection}`);
+        this.SetAnimationClass(group, `${TranslateBlockDown} ${OddEvenDirection} ${OffsetColors}`);
       }
     }, delay);
   }
 
   TranslateBlockOddEvenUpOffset(group, delay, alternate, cb) {
     setTimeout(() => {
-      document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockUp} ${OddEvenOffsetDirection}`);
+      this.SetAnimationClass(group, `${TranslateBlockUp} ${OddEvenOffsetDirection}`);
     }, delay);
   }
   TranslateBlockOddEvenDownOffset(group, delay, alternate, cb) {
     setTimeout(() => {
       if (alternate) {
-        document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockDownAlt} ${OddEvenOffsetDirection}`);
+        this.SetAnimationClass(group, `${TranslateBlockDownAlt} ${OddEvenOffsetDirection}`);
       } else {
-        document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateBlockDown} ${OddEvenOffsetDirection}`);
+        this.SetAnimationClass(group, `${TranslateBlockDown} ${OddEvenOffsetDirection}`);
       }
     }, delay);
   }
 
   TranslateBlockOddEvenDefault(group, delay, cb) {
     setTimeout(() => {
-      document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateDefault} ${OddEvenDirection}`);
+      this.SetAnimationClass(group, `${TranslateDefault} ${OddEvenDirection} ${OffsetColors}`);
     }, delay);
   }
   TranslateBlockOddEvenOffsetDefault(group, delay, cb) {
     setTimeout(() => {
-      document.querySelector(`#g-${group}`).setAttribute('class', `${TranslateDefault} ${OddEvenOffsetDirection}`);
+      this.SetAnimationClass(group, `${TranslateDefault} ${OddEvenOffsetDirection} ${OffsetColors}`);
     }, delay);
   }
-  TranslateBlockOddDefault(group, delay, cb) {
-    var timelineParameters = anime.timeline({
-      loop: false,
-      easing: this.easing,
-      duration: this.duration,
-      complete: (anim) => {
-        cb && cb();
-      }
-    });
-    var offset = '-=300';
-    timelineParameters
-      .add({ targets: document, duration: delay + 300 + this.delay })
-      .add(this.TranslateDefault(`#g-${group} g:nth-child(2) polygon`, offset))
-      .add(this.TranslateDefault(`#g-${group} g:nth-child(4) polygon`, offset))
-      ;
-  }
-  TranslateDown(line, offset) {
-    return { targets: line, translateY: [{ value: 100 }], translateX: [{ value: -50 }], offset: offset };
-  }
-  TranslateDownAlt(line, offset) {
-    return { targets: line, translateY: [{ value: 100 }], translateX: [{ value: 50 }], offset: offset };
-  }
-  TranslateUp(line, offset) {
-    return { targets: line, translateY: [{ value: -100 }], translateX: [{ value: 50 }], offset: offset };
-  }
-  TranslateUpAlt(line, offset) {
-    return { targets: line, translateY: [{ value: -100 }], translateX: [{ value: -50 }], offset: offset };
-  }
-  TranslateDefault(line, offset) {
-    return { targets: line, translateY: [{ value: 0 }], translateX: [{ value: 0 }], offset: offset };
-  }
+
   render() {
 
     return (<LogoWrapper color={this.props.color}>
@@ -231,13 +204,6 @@ class LogoAnimated extends React.Component {
   }
 }
 
-const logo_css = css`
-  width: auto;
-  height: 50px;
-  margin-left: 40px;
-  overflow: visible;
-  position: relative;
-`;
 
 const TranslateDefault = css`
   g polygon{
@@ -310,40 +276,40 @@ const NormalDirectionFast = css`
   }
 `;
 
-const CenterDirection = css`
-  g:nth-child(1) polygon{
-    transition-delay: 0ms;
-  }
-  g:nth-child(2) polygon{
-    transition-delay: 200ms;
-  }
-  g:nth-child(3) polygon{
-    transition-delay: 400ms;
-  }
-  g:nth-child(4) polygon{
-    transition-delay: 200ms;
-  }
-  g:nth-child(5) polygon{
-    transition-delay: 0ms;
-  }
-`;
-const AlternateDirection = css`
-  g:nth-child(5) polygon{
-    transition-delay: 0ms;
-  }
-  g:nth-child(4) polygon{
-    transition-delay: 200ms;
-  }
-  g:nth-child(3) polygon{
-    transition-delay: 400ms;
-  }
-  g:nth-child(2) polygon{
-    transition-delay: 600ms;
-  }
-  g:nth-child(1) polygon{
-    transition-delay: 800ms;
-  }
-`;
+// const CenterDirection = css`
+//   g:nth-child(1) polygon{
+//     transition-delay: 0ms;
+//   }
+//   g:nth-child(2) polygon{
+//     transition-delay: 200ms;
+//   }
+//   g:nth-child(3) polygon{
+//     transition-delay: 400ms;
+//   }
+//   g:nth-child(4) polygon{
+//     transition-delay: 200ms;
+//   }
+//   g:nth-child(5) polygon{
+//     transition-delay: 0ms;
+//   }
+// `;
+// const AlternateDirection = css`
+//   g:nth-child(5) polygon{
+//     transition-delay: 0ms;
+//   }
+//   g:nth-child(4) polygon{
+//     transition-delay: 200ms;
+//   }
+//   g:nth-child(3) polygon{
+//     transition-delay: 400ms;
+//   }
+//   g:nth-child(2) polygon{
+//     transition-delay: 600ms;
+//   }
+//   g:nth-child(1) polygon{
+//     transition-delay: 800ms;
+//   }
+// `;
 
 const OddEvenDirection = css`
 g:nth-child(1) polygon{
@@ -381,24 +347,37 @@ g:nth-child(4) polygon{
 }
 `;
 
-
-
-
-
-const LogoWrapper = styled('div')`
-    overflow: hidden;
-    /* background-color: pink; */
-    position: fixed;
-    left: 0;
-    top: 40px;
-    width: 100%;
-    font-size: 0;
-    svg{
-      
-    }
-    polygon{
-      fill: ${props => props.color};
-    }
+const OffsetColors = css`
+  /* g polygon:nth-child(1){
+    opacity: 0;
+  }
+  g polygon:nth-child(2){
+    opacity: 0;
+  }
+  }g polygon:nth-child(3){
+    fill: #000;
+  } */
 `;
+
+
+
+
+
+// const LogoWrapper = styled('div')`
+//   pointer-events: all;
+//   overflow: hidden;
+//   /* background-color: pink; */
+//   position: fixed;
+//   left: 0;
+//   top: 40px;
+//   width: 100%;
+//   font-size: 0;
+//   svg{
+
+//   }
+//   polygon{
+//     /* fill: ${props => props.color}; */
+//   }
+// `;
 
 export default LogoAnimated;

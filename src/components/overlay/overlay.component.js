@@ -6,18 +6,12 @@ import LogoStripes from '../logo/logo.stripes.component';
 
 class Overlay extends React.Component {
 
-
-  constructor() {
-    super();
-
-  }
-
   render() {
 
     return (<OverlayWrapper>
-      {this.props.logo == 'animated' && <LogoAnimated color={this.props.color} />}
-      {this.props.logo == 'full' && <LogoFull color={this.props.color} />}
-      {this.props.logo == 'stripes' && <LogoStripes color={this.props.color} />}
+      {this.props.logo === 'animated' && <LogoAnimated color={this.props.color} />}
+      {this.props.logo === 'full' && <LogoFull color={this.props.color} />}
+      {this.props.logo === 'stripes' && <LogoStripes color={this.props.color} />}
 
       {/* <Footer color={this.props.color} /> */}
     </OverlayWrapper>)
@@ -33,6 +27,7 @@ const OverlayWrapper = styled('div')`
     height: 100%;
     clip: rect(0, auto, auto, 0);
     pointer-events: none;
+    z-index: 10;
 
 `;
 

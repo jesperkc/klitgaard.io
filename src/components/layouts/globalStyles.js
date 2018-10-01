@@ -1,7 +1,7 @@
 import { injectGlobal } from 'react-emotion';
 
 injectGlobal`
-  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900');
+  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900');
   html, body, #root {
     width: 100%;
     height: 100%;
