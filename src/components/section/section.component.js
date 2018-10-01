@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'react-emotion';
-import Overlay from '../overlay/overlay.component';
+// import Overlay from '../overlay/overlay.component';
 
 class Section extends React.Component {
 
@@ -8,7 +8,7 @@ class Section extends React.Component {
 
     return (<StyledSection backgroundColor={this.props.backgroundColor} color={this.props.logoColor}>
 
-      <Overlay color={this.props.logoColor} logo={this.props.logo} />
+      {/* <Overlay color={this.props.logoColor} logo={this.props.logo} /> */}
       {this.props.children}
     </StyledSection>)
   }
